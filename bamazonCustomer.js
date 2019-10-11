@@ -12,40 +12,54 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  displayTable()
+  displayTable();
 });
 
 function displayTable() {
   connection.query("SELECT * FROM products", function(err, res) {
-      if (err) throw err;
-      else {
-          console.log(                "\n~~~~~~~WELCOME TO BAMAZON~~~~~~")
-          console.table("\n",res, "\n");
-          itemSelect();
+    if (err) throw err;
+    else {
+      console.log("\n~~~~~~~WELCOME TO BAMAZON~~~~~~");
+      console.table("\n", res, "\n");
+      itemSelect(res);
     }
   });
 }
-function itemSelect() {
+function itemSelect(pastResponse) {
   inquirer
     .prompt([
       {
         name: "id",
         type: "input",
-        message: "Please select product by item_id to purchase.",
-    
+        message: "Please select product by item_id to purchase."
       },
       {
         name: "units",
         type: "input",
-        message: "How many units of this product would you like to purchase?",
-    
+        message: "How many units of this product would you like to purchase?"
       }
     ])
     .then(function(ans) {
-        var itemID = ans.id;
-        var unitQuantity = ans.units;
-        console.log(itemID, unitQuantity);
-        connection.end();
+      var itemID = ans.id;
+      var unitQuantity = ans.units;
+      var newQuantity = pastResponse[itemID - 1].stock_quantity;
+      
+      updateStock(newQuantity, itemID);
+
+      // connection.end();
     });
 }
 
+function updateStock(newQuantity, itemID) {
+  connection.query("UPDATE products SET stock_quantity = " + newQuantity + " WHERE item_id= " + itemID,function(err, res) {
+      if (err) throw err;
+     
+      console.log("");
+      console.log("Your Order has been Processed");
+      console.log("Thank you for Shopping with us...!");
+      console.log("");
+      displayTable();
+    }
+  );
+  // connection.end();
+}
