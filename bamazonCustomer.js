@@ -44,33 +44,29 @@ function itemSelect(pastResponse) {
       var unitQuantity = ans.units;
       // console.log(pastResponse);
       for (let i = 0; i < pastResponse.length; i++) {
-          if(pastResponse[i].item_id == itemID){
-            if(pastResponse[i].stock_quantity > unitQuantity){
-
-              var newQuantity = pastResponse[i].stock_quantity - unitQuantity;
-              console.log(newQuantity);
-              updateStock(newQuantity, itemID);
-              // total()
-            }
-            else{
-              console.log("insufficient quantity");
-              
-            }
-            
-
-          }    
+        if (pastResponse[i].item_id == itemID) {
+          if (pastResponse[i].stock_quantity > unitQuantity) {
+            var newQuantity = pastResponse[i].stock_quantity - unitQuantity;
+            // console.log(newQuantity);
+            updateStock(newQuantity, itemID);
+            // total()
+          } else {
+            console.log("insufficient quantity");
+          }
+        }
       }
-      
-      
-     
-
     });
 }
 
 function updateStock(newQuantity, itemID) {
-  connection.query("UPDATE products SET stock_quantity = " + newQuantity + " WHERE item_id= " + itemID,function(err, res) {
+  connection.query(
+    "UPDATE products SET stock_quantity = " +
+      newQuantity +
+      " WHERE item_id= " +
+      itemID,
+    function(err, res) {
       if (err) throw err;
-     
+
       console.log("");
       console.log("Your Order has been Processed");
       console.log("Thank you for Shopping with us...!");

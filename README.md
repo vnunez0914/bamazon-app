@@ -18,10 +18,11 @@ Bamazon is an Amazon-like storefront that will take in orders from customers and
    * [mysql](https://www.npmjs.com/package/mysql)
 
    
- 3. Type node bamazonCustomer.js to execute inquirer prompt.
+ 3. Type node bamazonCustomer.js to execute inquirer prompt. App will let user know if there is an Insufficient quantity.    
 
   
       ![](https://media.giphy.com/media/UqNAgFy7q4EfMyzp51/giphy.gif)
+      ![](https://media.giphy.com/media/TGoiGinUHgYHC9h47D/giphy.gif)
    
   
  
@@ -34,12 +35,14 @@ Bamazon is an Amazon-like storefront that will take in orders from customers and
 
 # Issues
 
-* Currently the app can only display the SQL database but will update readme when feature to update table info is fixed
+* Currently the app can only display the SQL database and updates the stock_quantity depending on how many units the user purchases
+* It does not display the total price. Will update README with a giphy when it does.
 
 
 
 # Future Developments:
-* Have the tables stock_quantity update depending on what the user purchases.
+* Have the table show customer the total and have a "manager" add inventory and restock
+* Add prompt to have a list for the "manager" to restock and add products.
 
 
 # Developer:
