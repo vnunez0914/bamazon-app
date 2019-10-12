@@ -42,11 +42,28 @@ function itemSelect(pastResponse) {
     .then(function(ans) {
       var itemID = ans.id;
       var unitQuantity = ans.units;
-      var newQuantity = pastResponse[itemID - 1].stock_quantity;
-      
-      updateStock(newQuantity, itemID);
+      // console.log(pastResponse);
+      for (let i = 0; i < pastResponse.length; i++) {
+          if(pastResponse[i].item_id == itemID){
+            if(pastResponse[i].stock_quantity > unitQuantity){
 
-      // connection.end();
+              var newQuantity = pastResponse[i].stock_quantity - unitQuantity;
+              console.log(newQuantity);
+              updateStock(newQuantity, itemID);
+              // total()
+            }
+            else{
+              console.log("insufficient quantity");
+              
+            }
+            
+
+          }    
+      }
+      
+      
+     
+
     });
 }
 
